@@ -16,6 +16,18 @@ class municipioService {
         return municipioData;
 
     }
+
+     static async getMunicipioByNome(nome) {
+        const municipioData = await municipioRepository.findBynome(nome);
+        if (!municipioData) {
+            throw new Error('Municipio não encontrado');
+
+
+        }
+
+        return municipioData;
+
+    }
 }
 
 module.exports = municipioService;

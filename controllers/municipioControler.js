@@ -10,6 +10,17 @@ class municipioController {
             res.status(500).json({ error: error.message });
         }         
     }
+
+    
+    static async getByName(req, res){
+        const nome = req.params.nome;
+        try {
+            const municipio = await municipioService.getMunicipioByNome(nome);
+            res.json(municipio);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }         
+    }
 }
 
 module.exports = municipioController;

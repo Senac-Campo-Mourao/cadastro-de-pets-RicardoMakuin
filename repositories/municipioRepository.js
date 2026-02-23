@@ -25,7 +25,21 @@ class municipioRepository {
 
         return municipioModel.mapTomunicipio(municipioData);
 
+    }
 
+     static async findBynome(nomeMunicipio) {
+        const query = `
+         SELECT m.id_municipio, m.nome as municipio_nome, u.nome as uf_nome, u.sigla as uf_sigla 
+         FROM municipio m
+         inner join uf u on m.id_uf = u.id_uf
+         WHERE m.nome LIKE CONCAT('%', ?, '%')`;
+
+        const [rows] = await db.query(query, [nomeMunicipio]);
+
+
+        const municipioData = rows.length > 0 ? rows[0] : null;
+
+        return municipioModel.mapTomunicipio(municipioData);
 
     }
 
